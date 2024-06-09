@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>図書検索システム：図書登録</title>
+<link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        Book Search<a th:href="@{/}" id="logout">ログアウト</a>
+    </header>
+    <p>図書登録</p>
+    <ul th:each="errorMessage : ${errorList}" id="error-message">
+        <li th:text="${errorMessage}"></li>
+    </ul>
+    <form th:action="@{/insertBook/}" method="post" id="insert-form">
+        <table>
+            <tr>
+                <th>ISBN<span class="required">*</span></th>
+                <td><input type="text" name="isbn" size="65" maxlength="13"></td>
+            </tr>
+            <tr>
+                <th>JANコード<span class="required">*</span></th>
+                
+                <td><input type="text" name="jan_code" size="40"  maxlength="13"></td>
+            </tr>
+            <tr>
+                <th>タイトル<span class="required">*</span></th>
+                <td><input type="text" name="title" size="65" maxlength="65"></td>
+            </tr>
+            <tr>
+                <th>著者名<span class="required">*</span></th>
+                
+                <td><input type="text" name="author" size="40"  maxlength="40"></td>
+            </tr>
+            <tr>
+                <th>出版社名<span class="required">*</span></th>
+                
+                <td><input type="text" name="publisher" size="40"  maxlength="60"></td>
+            </tr>
+            <tr>
+                <th>出版年月日<span class="required">*</span></th>
+                
+                <td><input type="date" name="publish_date" size="40"  maxlength="40" ></td>
+           
+            <tr>
+                <td colspan="2"><span class="required">*</span>必須入力項目</td>
+            </tr>
+            <tr>
+                <td colspan="2" text-align="right">
+                    <button type="submit" id="insert-button">登録</button>
+                    <a th:href="@{/bookList/}" id="cancel-button"><button type="button">キャンセル</button></a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

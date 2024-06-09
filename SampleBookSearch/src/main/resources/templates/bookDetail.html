@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>図書検索システム：図書詳細</title>
+	<link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<header>
+		Book Search<a th:href="@{/}" id="logout">ログアウト</a>
+	</header>
+	<p>図書詳細画面</p>
+	<form action="../deleteBook/" method="post" id="detail-form">
+		<input type="hidden" name="id" th:value="${book.id}">
+		<table>
+			<p style="text-align:left">
+				<tr>
+					<th>ISBN：</th>
+					<td>
+						<div th:text="${book.isbn}" />
+					</td>
+				</tr>
+			</p>
+			<tr>
+				<th>JANコード：</th>
+				<td>
+					<div th:text="${book.janCode}" />
+				</td>
+			</tr>
+			<tr>
+				<th>タイトル：</th>
+				<td>
+					<div th:text="${book.title}" />
+				</td>
+			</tr>
+			<tr>
+				<th>著者名：</th>
+				<td>
+					<div th:text="${book.author}" />
+				</td>
+			</tr>
+			<tr>
+				<th>出版社名：</th>
+				<td>
+<!--					<div th:text="${book.publisher}" />-->
+				</td>
+			</tr>
+			<tr>
+				<th>出版年月日：</th>
+				<td th:text="${#strings.replace(book.publishDate, '-', '/')}"></td>
+			</tr>
+
+			</p>
+
+			<tr>
+				<td>
+					<button type="submit" id="delete-button"><a th:href="@{/deleteBook/}">削除</a></button>
+				</td>
+				<td>
+					<a th:href="@{/updateBook/?id={id}(id=${book.id})}" id="update-button">
+						<button type="button">更新</button>
+					</a>
+					<a th:href="@{/updateBook/}" id="back-button">
+						<button	type="button">戻る</button>
+					</a>
+					<a th:href="@{/bookList/}" id="back-button">
+						<button	type="button">戻る（テスト）</button>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+
+</html>

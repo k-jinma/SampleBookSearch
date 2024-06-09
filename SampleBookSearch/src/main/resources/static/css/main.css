@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+/* ヘッダー */
+header {
+   	border: 1px #000000 solid;
+    padding: 10px;
+}
+
+/* ログアウトリンク */
+#logout {
+    float: right;
+}
+
+/* ボタン */
+button {
+    width: 100px;
+    line-height: 2em;
+}
+
+/* 入力項目 */
+input {
+    line-height: 2em;
+    margin: 2px;
+}
+
+/* エラーメッセージ */
+#error-message {
+    text-align: center;
+    list-style:none;
+    color: #FF0000;
+}
+
+/* 必須項目 */
+.required {
+    color: #FF0000;
+}
+
+/* ログイン画面 */
+form#login-form {
+    margin: 0px auto 0 auto;
+    width: 280px;
+}
+
+form#login-form button[type=submit] {
+    width: 100%;
+}
+
+/* 図書一覧画面 */
+div#insert-button {
+    margin-left: 20px;
+}
+
+table#book-list {
+    margin: 10px auto 0 auto;
+    border: 1px #000000 solid;
+    border-collapse: collapse;
+    width: 90%;
+}
+
+table#book-list th,
+table#book-list td {
+    border: 1px #000000 solid;
+    padding: 5px;
+}
+
+table#book-list th {
+    background-color: #efebab;
+}
+
+/* 図書詳細画面 */
+form#detail-form {
+    margin: 10px auto 0 auto;
+    width: 90%;
+}
+
+form#detail-form table {
+    margin: 0 auto 0 auto;
+    width: 80%;
+}
+
+form#detail-form th {
+    font-weight: normal;
+    text-align: right;
+    width: 50%;
+}
+
+form#detail-form td {
+    width: 50%;
+}
+
+form#detail-form #delete-button {
+    float: left;
+}
+
+form#detail-form #back-button {
+    float: right;
+    margin-right: 10px;
+}
+
+form#detail-form #update-button {
+    float: right;
+}
+
+/* 登録画面 */
+form#insert-form {
+    margin: 10px auto 0 auto;
+    width: 90%;
+}
+
+form#insert-form table {
+    margin: 0 auto 0 auto;
+    width: 80%;
+}
+
+form#insert-form th {
+    font-weight: normal;
+    text-align: right;
+    width: 20%;
+}
+
+form#insert-form td {
+    width: 80%;
+}
+
+form#insert-form #cancel-button {
+    float: right;
+    margin-right: 10px;
+}
+
+form#insert-form #insert-button {
+    float: right;
+}
+
+/* 更新画面 */
+form#update-form {
+    margin: 10px auto 0 auto;
+    width: 90%;
+}
+
+form#update-form table {
+    margin: 0 auto 0 auto;
+    width: 80%;
+}
+
+form#update-form th {
+    font-weight: normal;
+    text-align: right;
+    width: 20%;
+}
+
+form#update-form td {
+    width: 80%;
+}
+
+form#update-form #cancel-button {
+    float: right;
+    margin-right: 10px;
+}
+
+form#update-form #insert-button {
+    float: right;
+}
