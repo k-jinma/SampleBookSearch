@@ -90,6 +90,10 @@ public class BookListController {
 		session.setAttribute("author", author);
 		session.setAttribute("publisherId", publisherId);
 		
+        //★出版社一覧を検索する
+		List<PublisherEntity> publisherList = publisherListService.searchPublisher();
+        model.addAttribute("publishers", publisherList);
+		
 		//検索条件に基づいて書籍リストを取得
 		List<BookAndPublisherEntity> bookList = bookListService.searchBooks(title, author, publisherId);
 		model.addAttribute("bookList", bookList);

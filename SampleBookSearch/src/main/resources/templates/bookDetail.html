@@ -14,38 +14,28 @@
 	<p>図書詳細画面</p>
 	<form action="../deleteBook/" method="post" id="detail-form">
 		<input type="hidden" name="id" th:value="${book.id}">
-		<table>
-			<p style="text-align:left">
-				<tr>
-					<th>ISBN：</th>
-					<td>
-						<div th:text="${book.isbn}" />
-					</td>
-				</tr>
+		<table id="detail-form table">
+<!--			<p style="text-align:left">-->
+			<tr>
+				<th>ISBN：</th>
+				<td><div th:text="${book.isbn}" /></td>
+			</tr>
 			</p>
 			<tr>
 				<th>JANコード：</th>
-				<td>
-					<div th:text="${book.janCode}" />
-				</td>
+				<td><div th:text="${book.janCode}" /></td>
 			</tr>
 			<tr>
 				<th>タイトル：</th>
-				<td>
-					<div th:text="${book.title}" />
-				</td>
+				<td><div th:text="${book.title}" /></td>
 			</tr>
 			<tr>
 				<th>著者名：</th>
-				<td>
-					<div th:text="${book.author}" />
-				</td>
+				<td><div th:text="${book.author}" /></td>
 			</tr>
 			<tr>
 				<th>出版社名：</th>
-				<td>
-<!--					<div th:text="${book.publisher}" />-->
-				</td>
+				<td><!--<div th:text="${book.publisher}" />--></td>
 			</tr>
 			<tr>
 				<th>出版年月日：</th>
@@ -62,11 +52,8 @@
 					<a th:href="@{/updateBook/?id={id}(id=${book.id})}" id="update-button">
 						<button type="button">更新</button>
 					</a>
-					<a th:href="@{/updateBook/}" id="back-button">
-						<button	type="button">戻る</button>
-					</a>
 					<a th:href="@{/bookList/}" id="back-button">
-						<button	type="button">戻る（テスト）</button>
+						<button	type="button">戻る</button>
 					</a>
 				</td>
 			</tr>
