@@ -77,7 +77,7 @@ public class InsertBookController {
             model.addAttribute("publish_date", insertBookFormBean.getPublishDate());
             
             
-            
+            model.addAttribute("added", "added");
             
             // model.addAttribute("password", password); // パスワードは戻す必要がない
             model.addAttribute("errorList", errorList);
@@ -85,7 +85,9 @@ public class InsertBookController {
         }
 
         // 図書一覧画面にリダイレクト
-        return "redirect:/bookList/";
+//        return "redirect:/bookList/";
+          model.addAttribute("added", "added");
+          return "insertBook";
     }
 
 }
