@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>図書検索システム：図書登録</title>
-<link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+	<meta charset="UTF-8">
+	<title>図書検索システム：図書登録</title>
+	<link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
+
     <header>
         Book Search<a th:href="@{/}" id="logout">ログアウト</a>
     </header>
@@ -13,7 +15,7 @@
     <ul th:each="errorMessage : ${errorList}" id="error-message">
         <li th:text="${errorMessage}"></li>
     </ul>
-    <form th:action="@{/insertBook/}" method="post" id="insert-form">
+    <form th:action="@{/insertBook/}" method="post" id="insert-form" onsubmit="return showDialog()">
         <table>
             <tr>
                 <th>ISBN<span class="required">*</span></th>
@@ -49,10 +51,33 @@
             <tr>
                 <td colspan="2" text-align="right">
                     <button type="submit" id="insert-button">登録</button>
-                    <a th:href="@{/bookList/}" id="cancel-button"><button type="button">キャンセル</button></a>
+                    <a th:href="@{/bookList/}" id="cancel-button">
+					<button type="button" onclick="cancelDialog()">キャンセル</button></a>
                 </td>
             </tr>
+			
+			<button type="button" onclick="showDialog()">aaaaa</button>
         </table>
     </form>
+	
+	
+	
+	<script>
+		// JavaScriptではJavaのメソッドのことを関数と呼びます
+		function showDialog(){
+			window.confirm("入力された情報で登録します。よろしいですか？");		
+		}
+		
+		function cancelDialog(){
+			window.confirm("よろしいですか？");		
+		}
+		
+		var added = /*[[${added}]]*/ 'default';
+		if(  added = "ddddd" ){
+			window.alert("登録しました");
+		}
+		
+	</script>
+	
 </body>
 </html>
