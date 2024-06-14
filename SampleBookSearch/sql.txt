@@ -1,0 +1,76 @@
+CREATE TABLE book (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    isbn VARCHAR(13) NOT NULL,
+    jan_code VARCHAR(13) DEFAULT NULL,
+    title VARCHAR(65) NOT NULL,
+    author VARCHAR(40) NOT NULL,
+    publisher_id INT(11) NOT NULL,
+    publish_date DATE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO book (isbn, jan_code, title, author, publisher_id, publish_date)
+VALUES
+('9781234567897', '4901234567894', 'The Great Adventure', 'John Smith', 1, '2023-01-15'),
+('9782345678901', NULL, 'Mystery of the Old House', 'Emily Johnson', 2, '2022-10-22'),
+('9783456789012', '4902345678905', 'Understanding SQL', 'Michael Brown', 3, '2021-05-10'),
+('9784567890123', '4903456789016', 'Journey to the Mountains', 'Sarah Davis', 4, '2020-03-18'),
+('9785678901234', NULL, 'Advanced Java Programming', 'David Wilson', 5, '2019-08-30');
+
+-- 追加のサンプルデータ
+INSERT INTO book (isbn, jan_code, title, author, publisher_id, publish_date)
+VALUES
+('9786789012345', '4904567890127', 'Cooking with Love', 'Sophia Martinez', 2, '2024-02-14'),
+('9787890123456', '4905678901238', 'The World of Art', 'James Garcia', 6, '2023-11-05'),
+('9788901234567', NULL, 'Traveling Around the World', 'Emma Rodriguez', 3, '2022-07-21'),
+('9789012345678', '4906789012349', 'Mastering Python', 'Olivia Lee', 1, '2021-12-25'),
+('9780123456789', NULL, 'The History of Science', 'Liam Walker', 4, '2020-09-30');
+
+
+CREATE TABLE user (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    login_id VARCHAR(20) NOT NULL,
+    password VARCHAR(64) NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO user (login_id, password, name)
+VALUES
+('user001', 'puser001', 'John Doe'),
+('user002', 'puser002', 'Jane Smith'),
+('user003', 'puser003', 'Alice Johnson'),
+('user004', 'puser004', 'Bob Brown'),
+('user005', 'puser005', 'Charlie White'),
+('user006', 'puser006', 'Daniel Green'),
+('user007', 'puser007', 'Eve Black'),
+('user008', 'puser008', 'Frank Blue'),
+('user009', 'puser009', 'Grace Red'),
+('user010', 'puser010', 'Hank Yellow');
+
+CREATE TABLE publisher (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    code VARCHAR(7) NOT NULL,
+    name VARCHAR(60) NOT NULL,
+    zip_code VARCHAR(8) DEFAULT NULL,
+    address VARCHAR(100) DEFAULT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO publisher (code, name, zip_code, address)
+VALUES
+('P001', 'Tech Books Publishing', '123-4567', '1234 Elm Street, Tokyo'),
+('P002', 'Mystery House Publishers', '987-6543', '4321 Oak Avenue, Osaka'),
+('P003', 'Adventure Press', NULL, '6789 Maple Lane, Kyoto'),
+('P004', 'Knowledge Tree', '456-7890', NULL),
+('P005', 'Creative Minds', NULL, NULL);
+
+-- 追加のサンプルデータ
+INSERT INTO publisher (code, name, zip_code, address)
+VALUES
+('P006', 'Nature Books Ltd.', '111-2222', '2020 Cedar Road, Nagoya'),
+('P007', 'Science World', '333-4444', '3030 Pine Boulevard, Fukuoka'),
+('P008', 'History and More', NULL, '4040 Birch Way, Sapporo'),
+('P009', 'Fantasy Island', '555-6666', '5050 Spruce Street, Kobe'),
+('P010', 'Urban Tales', '777-8888', NULL);
+

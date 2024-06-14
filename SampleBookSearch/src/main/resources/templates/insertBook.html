@@ -7,6 +7,32 @@
 
 </head>
 <body>
+	
+	<!-- 登録完了ダイアログ -->
+	<dialog id="finished">
+		<p>図書情報の登録が完了しました。</p>
+		<div class="button_area">
+		    <a th:href="@{/bookList/}"><button type="button">OK</button></a>
+		</div>
+	</dialog>
+	
+	
+	<script>
+		//登録完了ダイアログを表示
+		function showFinishedDialog() {
+		    const dialog = document.getElementById('finished');
+		    dialog.showModal();
+		}
+	</script>
+	
+	<!-- 登録完了した場合のみダイアログ表示 -->
+	<script th:if="${isSucceed}">
+	    showFinishedDialog();
+	</script>
+	
+	
+	
+	
 
     <header>
         Book Search<a th:href="@{/}" id="logout">ログアウト</a>
@@ -56,28 +82,8 @@
                 </td>
             </tr>
 			
-			<button type="button" onclick="showDialog()">aaaaa</button>
         </table>
     </form>
-	
-	
-	
-	<script>
-		// JavaScriptではJavaのメソッドのことを関数と呼びます
-		function showDialog(){
-			window.confirm("入力された情報で登録します。よろしいですか？");		
-		}
-		
-		function cancelDialog(){
-			window.confirm("よろしいですか？");		
-		}
-		
-		var added = /*[[${added}]]*/ 'default';
-		if(  added = "ddddd" ){
-			window.alert("登録しました");
-		}
-		
-	</script>
 	
 </body>
 </html>

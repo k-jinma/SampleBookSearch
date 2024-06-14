@@ -76,8 +76,9 @@ public class InsertBookController {
             model.addAttribute("publisher_id", insertBookFormBean.getPublisherId());
             model.addAttribute("publish_date", insertBookFormBean.getPublishDate());
             
-            
-            model.addAttribute("added", "added");
+
+            // このコードは本来は登録されたときに記述する（テスト用としてここに記述）
+            model.addAttribute("isSucceed", true);
             
             // model.addAttribute("password", password); // パスワードは戻す必要がない
             model.addAttribute("errorList", errorList);

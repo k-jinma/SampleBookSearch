@@ -12,13 +12,15 @@
 		Book Search<a th:href="@{/}" id="logout">ログアウト</a>
 	</header>
 	
-	<p>図書検索・一覧</p>
 
 
-	<div style="text-align: right; width: 90%; margin: 10px auto 0 auto">
-		<a th:href="@{/publisherList/}"><button type="button">出版社管理</button></a>
-	</div>
-
+	<div style="width: 90%; margin: 10px auto 0 auto">
+		<p>図書検索・一覧</p>
+		
+		<div style="text-align: right;">
+			<a th:href="@{/publisherList/}"><button type="button">出版社管理</button></a>
+		</div>
+		
 	<form th:action="@{/books/search}" method="post">
 		<input type="reset" value="条件クリア">
 		<table>
@@ -61,7 +63,9 @@
 		</table>
 	</form>
 
-	<p th:text="'総件数：' + ${#lists.size(bookList)}"></p>
+	
+	<p style="text-align: right; margin: 10px auto 0 auto; 	width: 90%;" th:text="'総件数：' + ${#lists.size(bookList)}"></p>
+	
 	<table id="book-list">
 		<tr>
 			<th>No</th>

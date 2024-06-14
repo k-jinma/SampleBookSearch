@@ -163,3 +163,14 @@ form#update-form #cancel-button {
 form#update-form #insert-button {
     float: right;
 }
+
+
+/* ダイアログ */
+dialog {
+    border: 1px #000000 solid;
+}
+
+dialog .button_area {
+    text-align: right;
+}
+
