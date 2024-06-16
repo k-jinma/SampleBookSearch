@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.withone.bookSearch.beans.UpdateBookFormBean;
 import jp.co.withone.bookSearch.component.BookValidationComponent;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 import jp.co.withone.bookSearch.repository.UpdateBookRepositoryImpl;
 
 /**
@@ -41,9 +41,9 @@ public class UpdateBookService {
      *
      * @param updateBookFormBean 図書更新フォーム用Bean
      */
-    public BookEntity getBeforeUpdateBook(UpdateBookFormBean updateBookFormBean) {
+    public BookDetailEntity getBeforeUpdateBook(UpdateBookFormBean updateBookFormBean) {
         // 更新前図書情報を取得
-        BookEntity beforeUpdateBook = updateBookRepository.getBeforeUpdateBook(updateBookFormBean);
+        BookDetailEntity beforeUpdateBook = updateBookRepository.getBeforeUpdateBook(updateBookFormBean);
 
         return beforeUpdateBook;
     }

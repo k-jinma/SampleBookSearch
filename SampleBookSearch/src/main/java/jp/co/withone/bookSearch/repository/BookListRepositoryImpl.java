@@ -90,7 +90,7 @@ public class BookListRepositoryImpl implements BookListRepository {
 		// publisherId = "1";
 	    
 		// SQLのベース文
-	    String sql = "SELECT book.id, book.title, book.author, publisher.name, book.publish_date, book.isbn, book.jan_code "
+	    String sql = "SELECT book.id, book.title, book.author, publisher.name, book.publish_date, book.isbn, book.jan_code, book.publisher_id "
 	               + "FROM book LEFT JOIN publisher "
 	               + "ON book.publisher_id = publisher.id ";
 

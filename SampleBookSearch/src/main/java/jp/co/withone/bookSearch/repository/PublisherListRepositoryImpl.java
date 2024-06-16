@@ -34,4 +34,19 @@ public class PublisherListRepositoryImpl implements PublisherListRepository {
 
 	}
 
+	public PublisherEntity searchPublisherNameById(int id) {
+		// SQLを作成
+		String sql = "SELECT * FROM publisher WHERE id = ?";
+		
+		// バインドパラメータを格納するリスト
+	    List<Object> args = new ArrayList<>();
+	    args.add(id);
+
+	    // 結果セットのマッピング
+	    RowMapper<PublisherEntity> rowMapper = new BeanPropertyRowMapper<>(PublisherEntity.class);
+
+	    // クエリの実行 
+	    return jdbcTemplate.queryForObject(sql, rowMapper, args.toArray());
+	}
+
 }

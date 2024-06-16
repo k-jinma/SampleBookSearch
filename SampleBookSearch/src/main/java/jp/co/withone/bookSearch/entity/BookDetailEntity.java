@@ -1,19 +1,6 @@
-package jp.co.withone.bookSearch.beans;
+package jp.co.withone.bookSearch.entity;
 
-import java.io.Serializable;
-
-/**
- * 図書更新画面パラメーター格納用Bean。
- *
- * @author education
- */
-public class UpdateBookFormBean implements Serializable {
-
-    /**
-     * シリアライズ化した際のバージョンID（気にせずこのまま使用して良い）。
-     */
-    private static final long serialVersionUID = 1L;
-    
+public class BookDetailEntity {
 
 	/** 図書ID */
 	private int id;

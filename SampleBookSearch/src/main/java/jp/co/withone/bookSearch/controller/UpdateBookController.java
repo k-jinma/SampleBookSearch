@@ -1,6 +1,7 @@
 package jp.co.withone.bookSearch.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jp.co.withone.bookSearch.beans.UpdateBookFormBean;
 import jp.co.withone.bookSearch.component.BookValidationComponent;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
+import jp.co.withone.bookSearch.entity.PublisherEntity;
+import jp.co.withone.bookSearch.service.PublisherListService;
 import jp.co.withone.bookSearch.service.UpdateBookService;
 
 
@@ -28,6 +30,9 @@ public class UpdateBookController {
     private final UpdateBookService updateBookService;
     private final BookValidationComponent bookValidationComponent;
     
+	/** 出版社関連処理（サービス層）を定義。 */
+	private final PublisherListService publisherListService;
+    
 
     /**
      * コンストラクタ.
@@ -35,10 +40,13 @@ public class UpdateBookController {
      * @param updateBookService
      */
     UpdateBookController(UpdateBookService updateBookService,
-            BookValidationComponent bookValidationComponent) {
+            				BookValidationComponent bookValidationComponent,
+            				PublisherListService publisherListService) {
+    	
         // 図書更新関連処理(サービス層)をインジェクション
         this.updateBookService = updateBookService;
         this.bookValidationComponent = bookValidationComponent;
+        this.publisherListService = publisherListService;
     }
 
     /**
@@ -49,14 +57,18 @@ public class UpdateBookController {
      * @return テンプレート名
      */
     @RequestMapping(value = "/updateBook/", method = RequestMethod.GET)
-    public String dispBookUpdate(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
+    public String dispBookUpdate(Model model, @RequestParam(value = "id", defaultValue = "") int id) {
         
         // パラメーターをbeanに設定
         UpdateBookFormBean updateBookFormBean = new UpdateBookFormBean();
         updateBookFormBean.setId(id);
         
         // 図書情報更新処理を行い、エラーメッセージを取得
-        BookEntity book = updateBookService.getBeforeUpdateBook(updateBookFormBean);
+        BookDetailEntity book = updateBookService.getBeforeUpdateBook(updateBookFormBean);
+        
+        //★出版社一覧を検索する
+		List<PublisherEntity> publisherList = publisherListService.searchPublisher();
+        model.addAttribute("publishers", publisherList);
 
         // viewに情報を渡す
         model.addAttribute("book", book);
@@ -75,21 +87,24 @@ public class UpdateBookController {
      * @ModelAttribute
      */
     @RequestMapping(value = "/updateBook/", method = RequestMethod.POST)
-    public String updateBook(Model model, HttpServletRequest request) {
-     // パラメーターをbeanに設定
+    public String updateBook(@RequestParam Map<String, String> allParam, Model model) {
+    	
+    	
+    	// 出版社IDから出版社名を取得する
+    	PublisherEntity publisherList = publisherListService.searchPublisherNameById( Integer.parseInt( allParam.get("publisher_id")) );
+    	
+    	// パラメーターをbeanに設定
         UpdateBookFormBean updateBookFormBean = new UpdateBookFormBean();
+        updateBookFormBean.setId( Integer.parseInt( allParam.get("id")) );
+        updateBookFormBean.setIsbn( allParam.get("isbn") );
+        updateBookFormBean.setJan_code( allParam.get("jan_code") );
+        updateBookFormBean.setTitle( allParam.get("title") );
+        updateBookFormBean.setAuthor( allParam.get("author") );
+        updateBookFormBean.setName( publisherList.getId() );
+        updateBookFormBean.setPublish_date( allParam.get("publish_date") );
         
-        updateBookFormBean.setIsbn(request.getParameter("isbn"));
-        updateBookFormBean.setJanCode(request.getParameter("janCode"));
-        updateBookFormBean.setTitle(request.getParameter("title"));
-        updateBookFormBean.setAuthor(request.getParameter("author"));
-        updateBookFormBean.setPublisherId(request.getParameter("publisher"));
-        updateBookFormBean.setPublishDate(request.getParameter("publishDate"));
-        updateBookFormBean.setId(request.getParameter("id"));
-        
-        
-        
-                List<String> errorList = bookValidationComponent.validateForUpdate(updateBookFormBean);
+
+        List<String> errorList = bookValidationComponent.validateForUpdate(updateBookFormBean);
         
 //        if(!errors.isEmpty()) {
 //            model.addAttribute("errors", errors);

@@ -14,7 +14,9 @@
         <li th:text="${errorMessage}"></li>
     </ul>
     <form th:action="@{/updateBook/}" method="post" id="update-form">
-        <input type="hidden" name="id" th:value="${book.id}">
+		
+		<input type="hidden" name="id" th:value="${book.id}">
+				
         <table>
         
         <tr>
@@ -25,7 +27,7 @@
         
         <tr>
                 <th>JANコード<span class="required">*</span></th>
-                <td><input type="text" name="janCode" th:value="${book.janCode}" size="65" maxlength="65"></td>
+                <td><input type="text" name="jan_code" th:value="${book.jan_code}" size="65" maxlength="65"></td>
             </tr>
         
         
@@ -41,13 +43,20 @@
             
             <tr>
                 <th>出版社名<span class="required">*</span></th>
-<!--                <td><input type="text" name="publisher" th:value="${book.publisher}" size="65" maxlength="65"></td>-->
+				<td>
+					<select id="publisher" name="publisher_id">
+						<option value="">--Select Publisher--</option>
+						<option th:each="publisher : ${publishers}" th:value="${publisher.id}"
+							th:text="${publisher.name}" th:selected="${book.id} == ${publisher.id}">
+						</option>
+					</select>
+				</td>
             </tr>
             
             
             <tr>
                <th>出版年月日<span class="required">*</span></th>
-                <td><input type="date" name="publishDate" th:value="${book.publishDate}" 　size="65" maxlength="65"></td>
+                <td><input type="date" name="publish_date" th:value="${book.publish_date}" 　size="65" maxlength="65"></td>
             </tr>
             
           

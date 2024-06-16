@@ -7,6 +7,14 @@
 
 </head>
 <body>
+	<!-- 登録確認ダイアログ -->
+	<dialog id="confirm">
+		<p>入力された情報で更新します。よろしいですか?</p>
+		<div class="button_area">
+		    <button type="button">OK</button>
+			<a th:href="@{/insertBook/}"><button type="button">キャンセル</button></a>
+		</div>
+	</dialog>
 	
 	<!-- 登録完了ダイアログ -->
 	<dialog id="finished">
@@ -16,21 +24,45 @@
 		</div>
 	</dialog>
 	
+	<!-- キャンセル確認ダイアログ -->
+	<dialog id="canceled">
+		<p>
+			入力された内容をキャンセルし、図書検索・一覧画面に戻ります。<br>
+			よろしいですか?
+		</p>
+		<div class="button_area">
+		    <a th:href="@{/bookList/}"><button type="button">OK</button></a>
+			<a th:href="@{/insertBook/}"><button type="button">キャンセル</button></a>
+		</div>
+	</dialog>
+	
 	
 	<script>
+		
+		//登録確認ダイアログを表示
+		function showConfirmDialog() {
+		    const dialog = document.getElementById('confirm');
+		    dialog.showModal();
+		}
+		
 		//登録完了ダイアログを表示
 		function showFinishedDialog() {
 		    const dialog = document.getElementById('finished');
 		    dialog.showModal();
 		}
+		
+		//キャンセル確認ダイアログを表示
+		function showCancelDialog() {
+		    const dialog = document.getElementById('canceled');
+		    dialog.showModal();
+		}
+		
 	</script>
 	
 	<!-- 登録完了した場合のみダイアログ表示 -->
 	<script th:if="${isSucceed}">
 	    showFinishedDialog();
 	</script>
-	
-	
 	
 	
 
@@ -41,7 +73,7 @@
     <ul th:each="errorMessage : ${errorList}" id="error-message">
         <li th:text="${errorMessage}"></li>
     </ul>
-    <form th:action="@{/insertBook/}" method="post" id="insert-form" onsubmit="return showDialog()">
+    <form th:action="@{/insertBook/}" method="post" id="insert-form" onsubmit="showConfirmDialog()">
         <table>
             <tr>
                 <th>ISBN<span class="required">*</span></th>
@@ -63,8 +95,14 @@
             </tr>
             <tr>
                 <th>出版社名<span class="required">*</span></th>
-                
-                <td><input type="text" name="publisher" size="40"  maxlength="60"></td>
+				<td>
+					<select id="publisher" name="publisher_id">
+						<option value="">--Select Publisher--</option>
+						<option th:each="publisher : ${publishers}" th:value="${publisher.id}"
+							th:text="${publisher.name}" th:selected="${publisher.id} == ${session.publisherId}">
+						</option>
+					</select>
+				</td>
             </tr>
             <tr>
                 <th>出版年月日<span class="required">*</span></th>
@@ -77,8 +115,7 @@
             <tr>
                 <td colspan="2" text-align="right">
                     <button type="submit" id="insert-button">登録</button>
-                    <a th:href="@{/bookList/}" id="cancel-button">
-					<button type="button" onclick="cancelDialog()">キャンセル</button></a>
+					<button type="button" onclick="showCancelDialog()">キャンセル</button></a>
                 </td>
             </tr>
 			

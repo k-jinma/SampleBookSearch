@@ -13,9 +13,10 @@
 	</header>
 	<p>図書詳細画面</p>
 	<form action="../deleteBook/" method="post" id="detail-form">
+		
 		<input type="hidden" name="id" th:value="${book.id}">
 		<table id="detail-form table">
-<!--			<p style="text-align:left">-->
+
 			<tr>
 				<th>ISBN：</th>
 				<td><div th:text="${book.isbn}" /></td>
@@ -23,7 +24,7 @@
 			</p>
 			<tr>
 				<th>JANコード：</th>
-				<td><div th:text="${book.janCode}" /></td>
+				<td><div th:text="${book.jan_code}" /></td>
 			</tr>
 			<tr>
 				<th>タイトル：</th>
@@ -35,18 +36,20 @@
 			</tr>
 			<tr>
 				<th>出版社名：</th>
-				<td><!--<div th:text="${book.publisher}" />--></td>
+				<td><div th:text="${book.name}" /></td>
 			</tr>
 			<tr>
 				<th>出版年月日：</th>
-				<td th:text="${#strings.replace(book.publishDate, '-', '/')}"></td>
+				<td th:text="${#strings.replace(book.publish_date, '-', '/')}"></td>
 			</tr>
 
 			</p>
 
 			<tr>
 				<td>
-					<button type="submit" id="delete-button"><a th:href="@{/deleteBook/}">削除</a></button>
+					<a th:href="@{/deleteBook/}">
+						<button type="submit" id="delete-button">削除</button>
+					</a>
 				</td>
 				<td>
 					<a th:href="@{/updateBook/?id={id}(id=${book.id})}" id="update-button">

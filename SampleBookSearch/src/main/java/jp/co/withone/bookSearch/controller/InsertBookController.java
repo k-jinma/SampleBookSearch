@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jp.co.withone.bookSearch.beans.InsertBookFormBean;
+import jp.co.withone.bookSearch.entity.PublisherEntity;
 import jp.co.withone.bookSearch.service.InsertBookService;
+import jp.co.withone.bookSearch.service.PublisherListService;
 
 /**
  * 図書登録関連処理（コントローラー層）。
@@ -22,15 +24,17 @@ public class InsertBookController {
 
     /** 図書登録関連処理（サービス層）を定義。 */
     private final InsertBookService insertBookService;
+    private final PublisherListService publisherListService;
 
     /**
      * コンストラクタ。
      *
      * @param insertBookService 図書登録関連処理（サービス層）
      */
-    InsertBookController(InsertBookService insertBookService) {
+    InsertBookController(InsertBookService insertBookService, PublisherListService publisherListService) {
         // 図書登録関連処理(サービス層)をインジェクション
         this.insertBookService = insertBookService;
+        this.publisherListService = publisherListService;
     }
 
     /**
@@ -39,7 +43,12 @@ public class InsertBookController {
      * @return テンプレート名
      */
     @RequestMapping(value = "/insertBook/", method = RequestMethod.GET)
-    public String dispBookInsert() {
+    public String dispBookInsert(Model model) {
+    	
+        //出版社一覧を検索する
+		List<PublisherEntity> publisherList = publisherListService.searchPublisher();
+        model.addAttribute("publishers", publisherList);
+    	
         // 図書登録画面表示
         return "insertBook";
     }
@@ -77,18 +86,18 @@ public class InsertBookController {
             model.addAttribute("publish_date", insertBookFormBean.getPublishDate());
             
 
-            // このコードは本来は登録されたときに記述する（テスト用としてここに記述）
-            model.addAttribute("isSucceed", true);
             
             // model.addAttribute("password", password); // パスワードは戻す必要がない
             model.addAttribute("errorList", errorList);
             return "insertBook";
         }
 
+        // 登録完了ダイアログ
+        model.addAttribute("isSucceed", true);
+
         // 図書一覧画面にリダイレクト
-//        return "redirect:/bookList/";
-          model.addAttribute("added", "added");
-          return "insertBook";
+        return "insertBook";
+        
     }
 
 }

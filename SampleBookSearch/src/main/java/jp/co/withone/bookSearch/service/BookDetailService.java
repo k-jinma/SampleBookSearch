@@ -3,7 +3,7 @@ package jp.co.withone.bookSearch.service;
 import org.springframework.stereotype.Service;
 
 import jp.co.withone.bookSearch.beans.BookDetailBean;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 import jp.co.withone.bookSearch.repository.BookDetailRepositoryImpl;
 
 /**
@@ -33,10 +33,10 @@ public class BookDetailService {
      *
      * @param detailFormBean 図書詳細取得用Bean
      */
-    public BookEntity bookDetail(BookDetailBean bookDetailBean) {
+    public BookDetailEntity bookDetail(BookDetailBean bookDetailBean) {
         // 図書詳細を取得
-        BookEntity bookDetail = bookDetailRepository.getBookDetail(bookDetailBean);
-
+    	BookDetailEntity bookDetail = bookDetailRepository.getBookDetail(bookDetailBean);
+    	
         return bookDetail;
 
     }

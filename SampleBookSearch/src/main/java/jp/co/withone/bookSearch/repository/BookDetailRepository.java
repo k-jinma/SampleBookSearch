@@ -1,7 +1,7 @@
 package jp.co.withone.bookSearch.repository;
 
 import jp.co.withone.bookSearch.beans.BookDetailBean;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 
 /**
  * 図書詳細関連リポジトリインターフェース。
@@ -17,6 +17,6 @@ public interface BookDetailRepository {
      * @param bookDetailBean 図書詳細画面パラメーター格納用Bean
      * 
      */
-    BookEntity getBookDetail(BookDetailBean bookDetailBean);
+    BookDetailEntity getBookDetail(BookDetailBean bookDetailBean);
 
 }

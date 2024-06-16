@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.co.withone.bookSearch.beans.UpdateBookFormBean;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 
 /**
  * 図書更新関連リポジトリ。
@@ -29,15 +29,18 @@ public class UpdateBookRepositoryImpl implements UpdateBookRepository {
      * {@inheritDoc}
      */
     @Override
-    public BookEntity getBeforeUpdateBook(UpdateBookFormBean updateBookFormBean) {
+    public BookDetailEntity getBeforeUpdateBook(UpdateBookFormBean updateBookFormBean) {
         // SQLを作成
-        String sql = "SELECT * FROM book WHERE id = ? ";
+        String sql = "SELECT b.id, b.isbn, b.jan_code, b.title, b.author, p.name, b.publish_date "
+        			+ "FROM book b, publisher p "
+        			+ "WHERE b.id = p.id "
+        			+ "AND b.id = ?;";
 
         // バインドパラメータを設定
         Object[] args = new Object[] { updateBookFormBean.getId()};
 
         // マッパーの設定
-        RowMapper<BookEntity> rowMapper = new BeanPropertyRowMapper<BookEntity>(BookEntity.class);
+        RowMapper<BookDetailEntity> rowMapper = new BeanPropertyRowMapper<BookDetailEntity>(BookDetailEntity.class);
 
         try {
             // DBから取得した結果を返す（1レコードのみ取得する場合はqueryForObjectを使う）
@@ -55,11 +58,11 @@ public class UpdateBookRepositoryImpl implements UpdateBookRepository {
     @Override
     public void updateBook(UpdateBookFormBean updateBookFormBean) {
         // SQLを作成
-        String sql = "UPDATE book SET isbn = ?, jan_code = ?, title = ?, author = ?, publisher = ?, publish_date = ? WHERE id = ?";
+        String sql = "UPDATE book SET isbn = ?, jan_code = ?, title = ?, author = ?, publisher_id = ?, publish_date = ? WHERE id = ?";
 
         // バインドパラメータを設定
-        Object[] args = new Object[] {updateBookFormBean.getIsbn(), updateBookFormBean.getJanCode(), updateBookFormBean.getTitle(),
-                updateBookFormBean.getAuthor(), updateBookFormBean.getPublisherId(), updateBookFormBean.getPublishDate(), Integer.parseInt(updateBookFormBean.getId())};
+        Object[] args = new Object[] {updateBookFormBean.getIsbn(), updateBookFormBean.getJan_code(), updateBookFormBean.getTitle(),
+                updateBookFormBean.getAuthor(), updateBookFormBean.getName(), updateBookFormBean.getPublish_date(), updateBookFormBean.getId()};
 
         // SQLを実行する
         jdbcTemplate.update(sql, args);

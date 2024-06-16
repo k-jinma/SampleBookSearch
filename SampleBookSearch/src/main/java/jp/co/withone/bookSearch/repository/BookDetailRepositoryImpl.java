@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.co.withone.bookSearch.beans.BookDetailBean;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 
 /**
  * 図書詳細関連リポジトリ。
@@ -29,15 +29,18 @@ public class BookDetailRepositoryImpl implements BookDetailRepository {
      * {@inheritDoc}
      */
     @Override
-    public BookEntity getBookDetail(BookDetailBean bookDetailBean) {
+    public BookDetailEntity getBookDetail(BookDetailBean bookDetailBean) {
         // SQLを作成
-        String sql = "SELECT * FROM book WHERE id = ?";
+        String sql = "SELECT b.id, b.isbn, b.jan_code, b.title, b.author, p.name, b.publish_date "
+        			+ "FROM book b, publisher p "
+        			+ "WHERE b.id = p.id "
+        			+ "AND p.id = ?;";
 
         // バインドパラメータを設定
-        Object[] args = new Object[] { bookDetailBean.getId() };
+        Object[] args = new Object[] { bookDetailBean.getId()};
 
         // マッパーの設定
-        RowMapper<BookEntity> rowMapper = new BeanPropertyRowMapper<BookEntity>(BookEntity.class);
+        RowMapper<BookDetailEntity> rowMapper = new BeanPropertyRowMapper<BookDetailEntity>(BookDetailEntity.class);
 
         try {
             // DBから取得した結果を返す（1レコードのみ取得する場合はqueryForObjectを使う）

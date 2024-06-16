@@ -1,7 +1,7 @@
 package jp.co.withone.bookSearch.repository;
 
 import jp.co.withone.bookSearch.beans.UpdateBookFormBean;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 
 /**
  * 図書更新関連リポジトリインターフェース。
@@ -17,7 +17,7 @@ public interface UpdateBookRepository {
      * @param updateBookFormBean 図書更新画面パラメーター格納用Bean
      * 
      */
-    BookEntity getBeforeUpdateBook(UpdateBookFormBean updateBookFormBean);
+    BookDetailEntity getBeforeUpdateBook(UpdateBookFormBean updateBookFormBean);
 
     /**
      * 図書更新。

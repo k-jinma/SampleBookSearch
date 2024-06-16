@@ -29,7 +29,7 @@ public class InsertBookRepositoryImpl implements InsertBookRepository {
     @Override
     public void insertBook(InsertBookFormBean insertBookFormBean) {
         // SQLを作成
-        String sql = "INSERT INTO book (isbn, jan_code, title, author, publisher, publish_date)" + " VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO book (isbn, jan_code, title, author, publisher_id, publish_date)" + " VALUES (?, ?, ?, ?, ?, ?)";
 
         // バインドパラメータを設定
         Object[] args = new Object[] { insertBookFormBean.getIsbn(),insertBookFormBean.getJanCode(),insertBookFormBean.getTitle(), insertBookFormBean.getAuthor(),

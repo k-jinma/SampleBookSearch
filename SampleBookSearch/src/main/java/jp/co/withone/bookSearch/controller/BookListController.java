@@ -83,7 +83,7 @@ public class BookListController {
 		//フォームに入力した値を取り出す
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
-		String publisherId = request.getParameter("publisherId");
+		String publisherId = request.getParameter("publisher_id");
 
 		//セッション変数に記憶させておく
 		session.setAttribute("title", title);

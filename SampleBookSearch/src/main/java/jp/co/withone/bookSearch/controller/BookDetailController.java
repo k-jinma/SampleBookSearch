@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jp.co.withone.bookSearch.beans.BookDetailBean;
-import jp.co.withone.bookSearch.entity.BookEntity;
+import jp.co.withone.bookSearch.entity.BookDetailEntity;
 import jp.co.withone.bookSearch.service.BookDetailService;
 
 /**
@@ -39,14 +40,20 @@ public class BookDetailController {
      * @return テンプレート名
      */
     @RequestMapping(value = "/bookDetail/", method = RequestMethod.GET)
-    public String dispBookDetail(Model model, @RequestParam(value = "id", defaultValue = "") int id) {
-        // パラメーターをbeanに設定
+    public String dispBookDetail(HttpServletRequest request, Model model, @RequestParam(value = "id", defaultValue = "") String id) {
+        
+    	if( id == "" ) {
+    	    // 図書詳細画面表示
+            return "bookList";
+    	}
+    	
+    	// パラメーターをbeanに設定
         BookDetailBean bookDetailBean = new BookDetailBean();
-        bookDetailBean.setId(id);
+        bookDetailBean.setId( Integer.parseInt(id) );
 
         // 図書詳細取得処理を行い、エラーメッセージを取得
-        BookEntity book = bookDetailService.bookDetail(bookDetailBean);
-
+        BookDetailEntity book = bookDetailService.bookDetail(bookDetailBean);
+        
         // viewに情報を渡す
         model.addAttribute("book", book);
 

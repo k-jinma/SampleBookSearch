@@ -21,5 +21,9 @@ public class PublisherListService {
 		return publisherListRepository.searchPublisher();
 	}
 	
+	public PublisherEntity searchPublisherNameById(int id) {
+		return publisherListRepository.searchPublisherNameById(id);
+	}
+	
 	
 }

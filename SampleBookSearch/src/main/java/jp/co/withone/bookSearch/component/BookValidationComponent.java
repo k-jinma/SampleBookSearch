@@ -25,24 +25,29 @@ public class BookValidationComponent {
      */
       
     
-//    validateCommonFieldsメソッドは登録、更新画面のbeanのエラーをまとめてするメソッド
+	// validateCommonFieldsメソッドは登録、更新画面のbeanのエラーをまとめてするメソッド
     
-//    登録時
+	// 登録時
     public List<String> validateForInsert(InsertBookFormBean insertBookFormBean) {
+    	
         return validateCommonFields(insertBookFormBean.getIsbn(),insertBookFormBean.getJanCode(),
                 insertBookFormBean.getTitle(),insertBookFormBean.getAuthor(),insertBookFormBean.
                 getPublisherId(),insertBookFormBean.getPublishDate());
     }
-//    更新時
+    
+    // 更新時
     public List<String> validateForUpdate(UpdateBookFormBean updateBookFormBean){
-        return validateCommonFields(updateBookFormBean.getIsbn(),updateBookFormBean.getJanCode(),
+    	
+        return validateCommonFields(updateBookFormBean.getIsbn(),updateBookFormBean.getJan_code(),
                 updateBookFormBean.getTitle(),updateBookFormBean.getAuthor(),
-                updateBookFormBean.getPublisherId(),updateBookFormBean.getPublishDate());
+                updateBookFormBean.getName(),updateBookFormBean.getPublish_date());
     }   
+    
     //共通のエラー処理メソッド
     private List<String> validateCommonFields(
             String isbn, String janCode, String title, String author, 
             String publisherId, String publishDate){
+    	
         List<String> errorList = new ArrayList<>();
         
 
@@ -50,26 +55,25 @@ public class BookValidationComponent {
         if (isbn == null || "".equals(isbn.trim())) {
             errorList.add("ISBNは必ず入力してください。");
         }
+        
         //ISBN桁数チェック
         if (isbn.length() != 13) {
             errorList.add("ISBNは13桁で入力してください。");
             
         }if (!isbn.matches("\\d+")){
-        errorList.add("ISBNは半角数字で入力してください。");
-       }
-
+        	errorList.add("ISBNは半角数字で入力してください。");
+        }
         
-      //JANコード桁数チェック
+        //JANコード桁数チェック
         if (janCode == null) {
             errorList.add("JANコードは必ず入力してください。");
-        }
-        if (janCode.length() != 13) {
+        
+        }else if (janCode.length() != 13) {
             errorList.add("JANコードは13桁で入力してください。");
-        }
-        else if(!janCode.matches("\\d+")){
+        
+        }else if(!janCode.matches("\\d+")){
             errorList.add("JANコードは半角数字で入力してください。");
         }       
-        
 
         // タイトル入力チェック（前後の空白文字は削除して判断）
         if (title == null || "".equals(title.trim())) {
@@ -78,8 +82,6 @@ public class BookValidationComponent {
         else if (65 < title.length()) {
             errorList.add("タイトルは65文字以内で入力してください。");
         }
-        
-
 
         // 著者入力必須チェック（前後の空白文字は削除して判断）
         if (author == null || "".equals(author.trim())) {
@@ -91,59 +93,26 @@ public class BookValidationComponent {
         }
         
         //出版社IDチェック
-
-        
         if(publisherId == null || publisherId.isEmpty()) {
-            errorList.add("出版社IDは必ず入力してください。");
+            errorList.add("出版社名は必ず選択してください。");
         }
-        else if(publisherId.length() != 11) {
-                    errorList.add("出版社IDは11桁で入力してください。");
-                }
-
-            
         
         // 出版年月日必須チェック
         if (publishDate == null || "".equals(publishDate.trim())) {
             errorList.add("出版年月日は必ず入力してください。");
         }
-        
-//     // 出版年月日桁数チェック
-//        else if (publishDate.length() != 10 ) {
-//            errorList.add("出版年月日は10桁で入力してください。");
-//        }
-//        
+           
         //出版年月日日付チェック（date text）
         try {
-        Date date = Date.valueOf(publishDate);
+        	Date date = Date.valueOf(publishDate);
 
         
         }catch(IllegalArgumentException e) {
             errorList.add("出版年月日の日付が正しくありません。");
         }
+        
         // エラーリストを返却
         return errorList;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
       }
