@@ -40,13 +40,6 @@
 			<a th:href="@{/insertBook/}"><button type="button">キャンセル</button></a>
 		</div>
 	</dialog>
-
-	
-	<!-- 登録完了した場合のみダイアログ表示 -->
-	<script th:if="${isSucceed}">
-	    showFinishedDialog();
-	</script>
-
 	
 	<script>
 
@@ -85,10 +78,12 @@
 		    dialog.showModal();
 		}
 		
-		// フォームのonsubmitイベントに登録確認ダイアログの表示を設定
-		document.getElementById('insert-form').addEventListener('submit', showConfirmDialog);
-		
-	</script>	
+	</script>
+	
+	<!-- 更新完了した場合のみダイアログ表示 -->
+	<script th:if="${isSucceed}">
+	    showFinishedDialog();
+	</script>
 <!-- 終了: ダイアログ設定-->
 
 
@@ -150,6 +145,10 @@
         </table>
     </form>
 
+	<script>
+		// フォームのonsubmitイベントに登録確認ダイアログの表示を設定
+		document.getElementById('insert-form').addEventListener('submit', showConfirmDialog);
+	</script>
 	
 </body>
 </html>
