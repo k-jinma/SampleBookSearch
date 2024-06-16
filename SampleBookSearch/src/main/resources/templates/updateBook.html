@@ -6,6 +6,88 @@
 <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
+	
+<!-- 開始: ダイアログ設定-->
+	 
+	<!-- 更新完了ダイアログ -->
+	<dialog id="finished">
+		<p>図書情報の更新が完了しました。</p>
+		<div class="button_area">
+		    <a th:href="@{/updateBook/(id=${book.id})}"><button type="button">OK</button></a>
+		</div>
+	</dialog>
+	
+	 	
+	<!-- 更新確認ダイアログ -->
+	<dialog id="confirm">
+		<p>入力された情報で更新します。よろしいですか?</p>
+		<div class="button_area">
+		    <button type="button" id="confirm-ok">OK</button>
+			<button type="button" id="confirm-cancel">キャンセル</button></a>
+		</div>
+	</dialog>
+	
+	
+	<!-- キャンセル確認ダイアログ -->
+	<dialog id="canceled">
+		<p>
+			入力された内容をキャンセルし、図書詳細画面に戻ります。<br>
+			よろしいですか?
+		</p>
+		<div class="button_area">
+		    <a th:href="@{/bookDetail/(id=${book.id})}"><button type="button">OK</button></a>
+			<a th:href="@{/updateBook/(id=${book.id})}"><button type="button">キャンセル</button></a>
+		</div>
+	</dialog>
+	
+	<script>
+
+		//更新完了ダイアログを表示
+		function showFinishedDialog() {
+		    const dialog = document.getElementById('finished');
+		    dialog.showModal();
+		}
+		
+		//更新確認ダイアログを表示
+		function showConfirmDialog(event) {
+			event.preventDefault();
+			const dialog = document.getElementById('confirm');
+			const okButton = document.getElementById('confirm-ok');
+			const cancelButton = document.getElementById('confirm-cancel');
+			
+			//　OKがクリックされたとき
+			okButton.onclick = () => {
+				dialog.close();
+				document.getElementById("update-form").submit(); //formを送信
+				
+			};
+			
+			// キャンセルがクリックされたとき
+			cancelButton.onclick = () => {
+				dialog.close();
+			};
+			
+			// ダイアログを表示
+		    dialog.showModal();
+		}
+		
+		//キャンセル確認ダイアログを表示
+		function showCancelDialog() {
+		    const dialog = document.getElementById('canceled');
+		    dialog.showModal();
+		}
+		
+		
+	</script>	
+	
+	<!-- 更新完了した場合のみダイアログ表示 -->
+	<script th:if="${isSucceed}">
+	    showFinishedDialog();
+	</script>
+	
+<!-- 終了: ダイアログ設定-->
+	
+	
     <header>
         Book Search<a th:href="@{/}" id="logout">ログアウト</a>
     </header>
@@ -65,15 +147,20 @@
             </tr>
             <tr>
                 <td colspan="2" text-align="right">
-                    <button type="submit" id="insert-button">更新</button>
-                    <a th:href="@{/bookDetail/?id={id}(id=${book.id})}" id="cancel-button"><button type="button">キャンセル</button></a>
+					<button type="submit" id="update-button">更新</button>
+					<button type="button" onclick="showCancelDialog()">キャンセル</button></a>
 				</td>
             </tr>
         </table>
     </form>
+	
+	
+	<script>
+		// フォームのonsubmitイベントに更新確認ダイアログの表示を設定
+		document.getElementById('update-form').addEventListener('submit', showConfirmDialog);
+	</script>
+	
 </body>
-
-
 
 </html>
 
