@@ -8,60 +8,135 @@
 </head>
 
 <body>
+	
+<!-- 開始: ダイアログ設定-->
+	 
+	<!-- 削除完了ダイアログ -->
+	<dialog id="finished">
+		<p>図書情報の削除が完了しました。</p>
+		<div class="button_area">
+		    <a th:href="@{/bookList/}"><button type="button">OK</button></a>
+		</div>
+	</dialog>
+	
+	<!-- 削除確認ダイアログ -->
+	<dialog id="confirm">
+		<p>入力された情報で削除します。よろしいですか?</p>
+		<div class="button_area">
+		    <button type="button" id="confirm-ok">OK</button>
+			<button type="button" id="confirm-cancel">キャンセル</button></a>
+		</div>
+	</dialog>	
+	
+	
+	<script>
+	
+		//削除完了ダイアログを表示
+		function showFinishedDialog() {
+		    const dialog = document.getElementById('finished');
+		    dialog.showModal();
+		}
+		
+		//削除確認ダイアログを表示
+		function showConfirmDialog(event) {
+			event.preventDefault();
+			const dialog = document.getElementById('confirm');
+			const okButton = document.getElementById('confirm-ok');
+			const cancelButton = document.getElementById('confirm-cancel');
+			
+			//　OKがクリックされたとき
+			okButton.onclick = () => {
+				dialog.close();
+				document.getElementById("delete-form").submit(); //formを送信
+				
+			};
+			
+			// キャンセルがクリックされたとき
+			cancelButton.onclick = () => {
+				dialog.close();
+			};
+			
+			// ダイアログを表示
+		    dialog.showModal();
+		}
+		
+	</script>
+	
+	
+	<!-- 更新完了した場合のみダイアログ表示 -->
+	<script th:if="${isSucceed}">
+	    showFinishedDialog();
+		
+	</script>
+		
+<!-- 終了: ダイアログ設定-->
+
+
 	<header>
-		Book Search<a th:href="@{/}" id="logout">ログアウト</a>
+		Book Search :<span th:text="${session.userName}"></span>
+		<a th:href="@{/logout}" id="logout">ログアウト</a>
 	</header>
 	<p>図書詳細画面</p>
-	<form action="../deleteBook/" method="post" id="detail-form">
+	
+	<th:block th:if="${isSucceed==null}">
 		
-		<input type="hidden" name="id" th:value="${book.id}">
-		<table id="detail-form table">
-
-			<tr>
-				<th>ISBN：</th>
-				<td><div th:text="${book.isbn}" /></td>
-			</tr>
-			</p>
-			<tr>
-				<th>JANコード：</th>
-				<td><div th:text="${book.jan_code}" /></td>
-			</tr>
-			<tr>
-				<th>タイトル：</th>
-				<td><div th:text="${book.title}" /></td>
-			</tr>
-			<tr>
-				<th>著者名：</th>
-				<td><div th:text="${book.author}" /></td>
-			</tr>
-			<tr>
-				<th>出版社名：</th>
-				<td><div th:text="${book.name}" /></td>
-			</tr>
-			<tr>
-				<th>出版年月日：</th>
-				<td th:text="${#strings.replace(book.publish_date, '-', '/')}"></td>
-			</tr>
-
-			</p>
-
-			<tr>
-				<td>
-					<a th:href="@{/deleteBook/}">
-						<button type="submit" id="delete-button">削除</button>
-					</a>
-				</td>
-				<td>
-					<a th:href="@{/updateBook/?id={id}(id=${book.id})}" id="update-button">
-						<button type="button">更新</button>
-					</a>
-					<a th:href="@{/bookList/}" id="back-button">
-						<button	type="button">戻る</button>
-					</a>
-				</td>
-			</tr>
-		</table>
-	</form>
+		<form action="/deleteBook/" method="get" id="detail-form">
+			
+			<input type="hidden" name="id" th:value="${book.id}">
+			<table id="delete-form table">
+	
+				<tr>
+					<th>ISBN：</th>
+					<td><div th:text="${book.isbn}" /></td>
+				</tr>
+				</p>
+				<tr>
+					<th>JANコード：</th>
+					<td><div th:text="${book.jan_code}" /></td>
+				</tr>
+				<tr>
+					<th>タイトル：</th>
+					<td><div th:text="${book.title}" /></td>
+				</tr>
+				<tr>
+					<th>著者名：</th>
+					<td><div th:text="${book.author}" /></td>
+				</tr>
+				<tr>
+					<th>出版社名：</th>
+					<td><div th:text="${book.name}" /></td>
+				</tr>
+				<tr>
+					<th>出版年月日：</th>
+					<td th:text="${#strings.replace(book.publish_date, '-', '/')}"></td>
+				</tr>
+	
+				</p>
+	
+				<tr>
+					<th>
+						<a th:href="@{/deleteBook/?id={id}(id=${book.id})}" id="delete-button">
+							<button type="submit" id="delete-button">削除</button>
+						</a>
+					</th>
+					<td id="right">
+						<a th:href="@{/updateBook/?id={id}(id=${book.id})}" id="update-button">
+							<button type="button">更新</button>
+						</a>
+						<a th:href="@{/bookList/}" id="back-button">
+							<button	type="button">戻る</button>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	
+	</th:block>
+	
+	<script>
+		// フォームのonsubmitイベントに更新確認ダイアログの表示を設定
+		document.getElementById('delete-form').addEventListener('submit', showConfirmDialog);
+	</script>
 </body>
 
 </html>

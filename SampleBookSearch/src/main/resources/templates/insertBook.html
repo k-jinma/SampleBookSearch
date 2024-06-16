@@ -87,9 +87,10 @@
 <!-- 終了: ダイアログ設定-->
 
 
-    <header>
-        Book Search<a th:href="@{/}" id="logout">ログアウト</a>
-    </header>
+	<header>
+		Book Search :<span th:text="${session.userName}"></span>
+		<a th:href="@{/logout}" id="logout">ログアウト</a>
+	</header>
 	
     <p>図書登録</p>
     <ul th:each="errorMessage : ${errorList}" id="error-message">

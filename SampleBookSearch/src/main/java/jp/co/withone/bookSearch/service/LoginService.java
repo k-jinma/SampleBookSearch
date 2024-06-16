@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jp.co.withone.bookSearch.beans.LoginFormBean;
 import jp.co.withone.bookSearch.component.LoginValidationComponent;
 import jp.co.withone.bookSearch.entity.UserEntity;
@@ -44,7 +46,7 @@ public class LoginService {
      * @param loginFormBean ログインフォーム用Bean
      * @return
      */
-    public List<String> login(LoginFormBean loginFormBean) {
+    public List<String> login(LoginFormBean loginFormBean, HttpServletRequest request) {
         // 入力チェック処理
         List<String> errorList = loginValidationComponent.validateForLogin(loginFormBean);
 
@@ -56,6 +58,11 @@ public class LoginService {
         // エラーが発生していない場合はログイン認証処理を行う
         // ユーザー情報を取得
         UserEntity loggedInUser = userRepository.getUserForLogin(loginFormBean);
+        
+        // 新しいセッションを取得または既存のセッションを取得
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userId", loggedInUser.getLoginId() );
+        session.setAttribute("userName", loggedInUser.getName() );
 
         // 取得できない場合認証はエラー
         if (loggedInUser == null) {

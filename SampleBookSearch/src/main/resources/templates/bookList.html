@@ -9,7 +9,8 @@
 
 <body>
 	<header>
-		Book Search<a th:href="@{/}" id="logout">ログアウト</a>
+		Book Search :<span th:text="${session.userName}"></span>
+		<a th:href="@{/logout}" id="logout">ログアウト</a>
 	</header>
 	
 
@@ -38,7 +39,7 @@
 			</tr>
 			<tr>
 				<th>
-					<label　for="publisher">出版社名:</label>
+					<label for="publisher">出版社名:</label>
 					<select id="publisher" name="publisherId">
 						<option value="">--Select Publisher--</option>
 						<option th:each="publisher : ${publishers}" th:value="${publisher.id}"
@@ -107,8 +108,8 @@
 			
 			// フォーム内フィールドを手動でクリア
 			document.getElementById("title").value = "";
-			// 必要に応じて他のフィールドもクリア
 			document.getElementById("author").value = "";
+			document.getElementById("publisher").value = "";
 		
 		}
 	</script>

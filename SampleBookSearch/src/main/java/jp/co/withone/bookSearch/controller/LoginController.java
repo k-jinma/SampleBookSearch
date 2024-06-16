@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jp.co.withone.bookSearch.beans.LoginFormBean;
 import jp.co.withone.bookSearch.service.LoginService;
 
@@ -40,6 +42,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String dispLogin() {
+
         return "login";
     }
     /**
@@ -51,7 +54,7 @@ public class LoginController {
      * @return テンプレート名
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String login(Model model, @RequestParam(value = "login_id", defaultValue = "") String loginId,
+    public String login(HttpServletRequest request, Model model, @RequestParam(value = "login_id", defaultValue = "") String loginId,
             @RequestParam(value = "password", defaultValue = "", required = true) String password) {
         // パラメーターをbeanに設定
         LoginFormBean loginFormBean = new LoginFormBean();
@@ -59,7 +62,7 @@ public class LoginController {
         loginFormBean.setPassword(password);
 
         // ログイン取得処理を行い、エラーメッセージを取得
-        List<String> errorList = loginService.login(loginFormBean);
+        List<String> errorList = loginService.login(loginFormBean, request);
 
         // エラーが発生した場合
         if (errorList.size() != 0) {
@@ -73,6 +76,18 @@ public class LoginController {
         // ログイン処理に成功したら一覧画面にリダイレクトする
         // リダイレクト先の画面に渡したいパラメーターがある場合はredirectAttributesを使用
         return "redirect:/bookList/";
+    }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+    	
+    	// セッションが存在しなければnullを返す
+    	HttpSession session = request.getSession(false);
+    	if( session != null ) {
+    		session.invalidate();
+    	}
+    	
+    	return "redirect:/";
     }
 
 }

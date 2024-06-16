@@ -42,7 +42,7 @@ select#publisher {
 /* ログイン画面 */
 form#login-form {
     margin: 0px auto 0 auto;
-    width: 280px;
+    width: 350px;
 }
 
 form#login-form button[type=submit] {
@@ -89,6 +89,8 @@ table#book-list th {
 }
 
 /* 図書詳細画面 */
+
+
 form#detail-form {
     margin: 10px auto 0 auto;
     width: 90%;
