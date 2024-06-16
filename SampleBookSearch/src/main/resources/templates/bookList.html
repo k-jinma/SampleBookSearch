@@ -17,13 +17,15 @@
 	<div style="width: 90%; margin: 10px auto 0 auto">
 		<p>図書検索・一覧</p>
 		
-		<div style="text-align: right;">
+		<div style="text-align: right; margin-bottom: 50px;">
 			<a th:href="@{/publisherList/}"><button type="button">出版社管理</button></a>
 		</div>
 		
 	<form id="input-form" th:action="@{/books/search}" method="post">
-		<input type="button" value="条件クリア" onclick="clearForm()">
-		<table>
+		<div style="text-align: right;">
+			<button type="button" onclick="clearForm()">条件クリア</button>
+		</div>	
+		<table id="search">
 			<tr>
 				<th>
 					<label for="title">タイトル:</label>
@@ -48,23 +50,26 @@
 			</tr>
 		</table>
 		<table>
-			<tr>
-				<th>
-					<div id="insert-button">
-						<a th:href="@{/insertBook/}"><button type="button">新規登録</button></a>
-					</div>
-				</th>
-				<th>
-					<div id="search-button">
-						<button type="submit">検索</button>
-					</div>
-				</th>
-			</tr>
+		    <tbody>
+		        <tr>
+		            <td colspan="2">
+		                <!-- Flexboxの親コンテナ -->
+		                <div class="button-container">
+		                    <div id="insert-button" class="left-align">
+		                        <a href="/insertBook/"><button type="button">新規登録</button></a>
+		                    </div>
+		                    <div id="search-button" class="right-align">
+		                        <button type="submit">検索</button>
+		                    </div>
+		                </div>
+		            </td>
+		        </tr>
+		    </tbody>
 		</table>
 	</form>
 
 	
-	<p style="text-align: right; margin: 10px auto 0 auto; 	width: 90%;" th:text="'総件数：' + ${#lists.size(bookList)}"></p>
+	<p style="text-align: right; margin: 10px auto 0 auto;" th:text="'総件数：' + ${#lists.size(bookList)}"></p>
 	
 	<table id="book-list">
 		<tr>

@@ -20,7 +20,11 @@ button {
 /* 入力項目 */
 input {
     line-height: 2em;
-    margin: 2px;
+    margin: 20px;
+}
+
+select#publisher {
+    height: 30px;	
 }
 
 /* エラーメッセージ */
@@ -45,22 +49,39 @@ form#login-form button[type=submit] {
     width: 100%;
 }
 
+
 /* 図書一覧画面 */
 div#insert-button {
     margin-left: 20px;
+}
+
+table#search tr{
+	margin: 20px 0px;
 }
 
 table#book-list {
     margin: 10px auto 0 auto;
     border: 1px #000000 solid;
     border-collapse: collapse;
-    width: 90%;
 }
 
 table#book-list th,
 table#book-list td {
     border: 1px #000000 solid;
     padding: 5px;
+}
+
+/* Flexboxの親コンテナのスタイル */
+.button-container {
+    display: flex;
+    justify-content: space-between; /* 子要素を左右に配置 */
+    align-items: center; /* 子要素を垂直方向に中央揃え */
+}
+
+/* テーブルのスタイルをリセットするために */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
 table#book-list th {
@@ -84,7 +105,6 @@ form#detail-form th {
 }
 
 form#detail-form td {
-/*    width: 50%;*/
 	text-align: left;
 }
 
@@ -162,7 +182,7 @@ form#update-form #insert-button {
 }
 
 select#publisher {
-	height: 30px;
+	margin: 20px;
 }
 
 
