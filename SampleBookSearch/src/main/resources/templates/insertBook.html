@@ -7,6 +7,18 @@
 
 </head>
 <body>
+	
+<!-- 開始: ダイアログ設定-->
+	 
+	<!-- 登録完了ダイアログ -->
+	<dialog id="finished">
+		<p>図書情報の登録が完了しました。</p>
+		<div class="button_area">
+		    <a th:href="@{/bookList/}"><button type="button">OK</button></a>
+		</div>
+	</dialog>
+	
+	 	
 	<!-- 登録確認ダイアログ -->
 	<dialog id="confirm">
 		<p>入力された情報で更新します。よろしいですか?</p>
@@ -16,13 +28,6 @@
 		</div>
 	</dialog>
 	
-	<!-- 登録完了ダイアログ -->
-	<dialog id="finished">
-		<p>図書情報の登録が完了しました。</p>
-		<div class="button_area">
-		    <a th:href="@{/bookList/}"><button type="button">OK</button></a>
-		</div>
-	</dialog>
 	
 	<!-- キャンセル確認ダイアログ -->
 	<dialog id="canceled">
@@ -35,30 +40,67 @@
 			<a th:href="@{/insertBook/}"><button type="button">キャンセル</button></a>
 		</div>
 	</dialog>
-	
-	
-	<script>
-		//登録完了ダイアログを表示
-		function showFinishedDialog() {
-		    const dialog = document.getElementById('finished');
-		    dialog.showModal();
-		}
-	</script>
+
 	
 	<!-- 登録完了した場合のみダイアログ表示 -->
 	<script th:if="${isSucceed}">
 	    showFinishedDialog();
 	</script>
+
 	
-	
+	<script>
+
+		//登録完了ダイアログを表示
+		function showFinishedDialog() {
+		    const dialog = document.getElementById('finished');
+		    dialog.showModal();
+		}
+		
+		//登録確認ダイアログを表示
+		function showConfirmDialog(event) {
+			event.preventDefault();
+			const dialog = document.getElementById('confirm');
+			const okButton = document.getElementById('confirm-ok');
+			const cancelButton = document.getElementById('confirm-cancel');
+			
+			//　OKがクリックされたとき
+			okButton.onclick = () => {
+				dialog.close();
+				document.getElementById("insert-form").submit(); //formを送信
+				
+			};
+			
+			// キャンセルがクリックされたとき
+			cancelButton.onclick = () => {
+				dialog.close();
+			};
+			
+			// ダイアログを表示
+		    dialog.showModal();
+		}
+		
+		//キャンセル確認ダイアログを表示
+		function showCancelDialog() {
+		    const dialog = document.getElementById('canceled');
+		    dialog.showModal();
+		}
+		
+		// フォームのonsubmitイベントに登録確認ダイアログの表示を設定
+		document.getElementById('insert-form').addEventListener('submit', showConfirmDialog);
+		
+	</script>	
+<!-- 終了: ダイアログ設定-->
+
 
     <header>
         Book Search<a th:href="@{/}" id="logout">ログアウト</a>
     </header>
+	
     <p>図書登録</p>
     <ul th:each="errorMessage : ${errorList}" id="error-message">
         <li th:text="${errorMessage}"></li>
     </ul>
+	
     <form th:action="@{/insertBook/}" method="post" id="insert-form">
         <table>
             <tr>
@@ -108,42 +150,6 @@
         </table>
     </form>
 
-	<script>
-		
-		//登録確認ダイアログを表示
-		function showConfirmDialog(event) {
-			event.preventDefault();
-			const dialog = document.getElementById('confirm');
-			const okButton = document.getElementById('confirm-ok');
-			const cancelButton = document.getElementById('confirm-cancel');
-			
-			//　OKがクリックされたとき
-			okButton.onclick = () => {
-				dialog.close();
-				document.getElementById("insert-form").submit(); //formを送信
-				
-			};
-			
-			// キャンセルがクリックされたとき
-			cancelButton.onclick = () => {
-				dialog.close();
-			};
-			
-			// ダイアログを表示
-		    dialog.showModal();
-		}
-		
-		
-		//キャンセル確認ダイアログを表示
-		function showCancelDialog() {
-		    const dialog = document.getElementById('canceled');
-		    dialog.showModal();
-		}
-		
-		// フォームのonsubmitイベントに登録確認ダイアログの表示を設定
-		document.getElementById('insert-form').addEventListener('submit', showConfirmDialog);
 	
-		
-	</script>	
 </body>
 </html>
