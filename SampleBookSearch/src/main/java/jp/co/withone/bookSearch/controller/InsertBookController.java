@@ -62,6 +62,11 @@ public class InsertBookController {
      */
     @RequestMapping(value = "/insertBook/", method = RequestMethod.POST)
     public String insertBook(Model model, HttpServletRequest request) {
+    	
+    	//出版社一覧を検索する
+		List<PublisherEntity> publisherList = publisherListService.searchPublisher();
+        model.addAttribute("publishers", publisherList);
+    	
         // パラメーターをbeanに設定
         InsertBookFormBean insertBookFormBean = new InsertBookFormBean();
         
@@ -84,9 +89,7 @@ public class InsertBookController {
             model.addAttribute("author", insertBookFormBean.getAuthor());
             model.addAttribute("publisher_id", insertBookFormBean.getPublisherId());
             model.addAttribute("publish_date", insertBookFormBean.getPublishDate());
-            
 
-            
             // model.addAttribute("password", password); // パスワードは戻す必要がない
             model.addAttribute("errorList", errorList);
             return "insertBook";

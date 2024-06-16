@@ -33,8 +33,8 @@ public class BookDetailRepositoryImpl implements BookDetailRepository {
         // SQLを作成
         String sql = "SELECT b.id, b.isbn, b.jan_code, b.title, b.author, p.name, b.publish_date "
         			+ "FROM book b, publisher p "
-        			+ "WHERE b.id = p.id "
-        			+ "AND p.id = ?;";
+        			+ "WHERE b.publisher_id = p.id "
+        			+ "AND b.id = ?;";
 
         // バインドパラメータを設定
         Object[] args = new Object[] { bookDetailBean.getId()};

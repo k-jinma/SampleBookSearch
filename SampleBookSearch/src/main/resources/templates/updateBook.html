@@ -19,13 +19,12 @@
 				
         <table>
         
-        <tr>
+        	<tr>
                 <th>ISBN<span class="required">*</span></th>
                 <td><input type="text" name="isbn" th:value="${book.isbn}" size="65" maxlength="65"></td>
             </tr>
         
-        
-        <tr>
+        	<tr>
                 <th>JANコード<span class="required">*</span></th>
                 <td><input type="text" name="jan_code" th:value="${book.jan_code}" size="65" maxlength="65"></td>
             </tr>
@@ -59,7 +58,6 @@
                 <td><input type="date" name="publish_date" th:value="${book.publish_date}" 　size="65" maxlength="65"></td>
             </tr>
             
-          
             <tr>
                 <td colspan="2">
                     <span class="required">*</span>必須入力項目
@@ -68,7 +66,8 @@
             <tr>
                 <td colspan="2" text-align="right">
                     <button type="submit" id="insert-button">更新</button>
-                    <a th:href="@{/bookDetail/?id={id}(id=${book.id})}" id="cancel-button"><button type="button">キャンセル</button></a>                </td>
+                    <a th:href="@{/bookDetail/?id={id}(id=${book.id})}" id="cancel-button"><button type="button">キャンセル</button></a>
+				</td>
             </tr>
         </table>
     </form>

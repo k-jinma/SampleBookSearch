@@ -19,6 +19,7 @@ public class BookDetailBean implements Serializable {
      */
     private int id;
 
+
     /**
      * 図書IDを取得。
      * 
@@ -36,5 +37,6 @@ public class BookDetailBean implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
 
 }
