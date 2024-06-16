@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.withone.bookSearch.beans.UpdateBookFormBean;
 import jp.co.withone.bookSearch.component.BookValidationComponent;
@@ -87,7 +88,7 @@ public class UpdateBookController {
      * @ModelAttribute
      */
     @RequestMapping(value = "/updateBook/", method = RequestMethod.POST)
-    public String updateBook(@RequestParam Map<String, String> allParam, Model model) {
+    public String updateBook(@RequestParam Map<String, String> allParam, Model model, RedirectAttributes redirectAttributes) {
     	
     	
     	// 出版社IDから出版社名を取得する
@@ -126,8 +127,11 @@ public class UpdateBookController {
   
         // 更新処理を行う
         updateBookService.updateBook(updateBookFormBean);
-        // 図書一覧画面にリダイレクト
-        return "redirect:/bookList/";   
+        
+        redirectAttributes.addFlashAttribute("isSucceed", true);
+        
+        // 更新画面にリダイレクト
+        return "redirect:/updateBook/?id=" + updateBookFormBean.getId();   
         
     }
 }            
