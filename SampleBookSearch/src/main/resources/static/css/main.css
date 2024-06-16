@@ -80,10 +80,7 @@ form#detail-form table {
 
 form#detail-form th {
     font-weight: normal;
-/*    text-align: right;*/
-/*    width: 50%;*/
 	text-align: left;
-	width: 40%;
 }
 
 form#detail-form td {
