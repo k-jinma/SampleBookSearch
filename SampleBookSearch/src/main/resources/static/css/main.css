@@ -164,6 +164,10 @@ form#update-form #insert-button {
     float: right;
 }
 
+select#publisher {
+	height: 30px;
+}
+
 
 /* ダイアログ */
 dialog {
@@ -172,5 +176,11 @@ dialog {
 
 dialog .button_area {
     text-align: right;
+}
+
+/* ヒント文字 */
+.hint {
+	color: gray;
+	font-size: 0.8em;
 }
 

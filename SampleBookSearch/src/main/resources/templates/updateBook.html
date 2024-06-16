@@ -39,6 +39,9 @@
 			<a th:href="@{/updateBook/(id=${book.id})}"><button type="button">キャンセル</button></a>
 		</div>
 	</dialog>
+
+	
+
 	
 	<script>
 
@@ -84,7 +87,6 @@
 	<script th:if="${isSucceed}">
 	    showFinishedDialog();
 	</script>
-	
 <!-- 終了: ダイアログ設定-->
 	
 	
@@ -103,12 +105,15 @@
         
         	<tr>
                 <th>ISBN<span class="required">*</span></th>
-                <td><input type="text" name="isbn" th:value="${book.isbn}" size="65" maxlength="65"></td>
+                <td><input type="text" name="isbn" th:value="${book.isbn}" size="65" maxlength="65"><label class="hint"> 半角数字</label></td>
             </tr>
-        
+			<tr>
+				<th></th>
+				<td><label class="hint">※ハイフン(-)は必要ありません。</label></td>
+			</tr>
         	<tr>
-                <th>JANコード<span class="required">*</span></th>
-                <td><input type="text" name="jan_code" th:value="${book.jan_code}" size="65" maxlength="65"></td>
+                <th>JANコード</th>
+                <td><input type="text" name="jan_code" th:value="${book.jan_code}" size="65" maxlength="65"><label class="hint"> 半角数字</label></td>
             </tr>
         
         
